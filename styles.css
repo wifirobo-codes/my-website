@@ -88,3 +88,36 @@ h1 {
 .card:hover .social-links { opacity: 1; }
 .social-icon { width: 24px; height: 24px; filter: invert(0.7) sepia(1) saturate(5) hue-rotate(180deg); }
 .icon-circle { border-radius: 50%; }
+
+/* --- Mobile Responsive Overrides --- */
+
+@media (max-width: 768px) {
+    /* Stack header elements vertically */
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    /* Fix the main grid on Home page */
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ensure text in cards doesn't hit screen edges */
+    .card {
+        padding: 20px;
+    }
+
+    /* Adjust font size for mobile readability */
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Ensure images don't overflow */
+img {
+    max-width: 100%;
+    height: auto;
+}
