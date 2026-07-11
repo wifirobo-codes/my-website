@@ -1,0 +1,24 @@
+HOW TO USE friends.json
+
+   - "name": The name to display.
+   - "id": Must match the filename in 'assets/friends/' (e.g., if id is 'aadvaitranjan', file must be 'assets/friends/aadvaitranjan.png').
+   - "link1id", "link2id", "link3id": The platform name (discord, email, github, instagram, linktree, whatsapp).
+   - "link1", "link2", "link3": The actual URL for that link.
+
+   - If a person has fewer than 3 links, set the unused "id" fields to "none" and the link fields to "none".
+   - The system automatically handles your specific filename requirements (e.g., 'discord' becomes 'discord_icon.png', 'email' becomes 'email icon.png').
+   - File extensions: Ensure all friend images are .png.
+
+SAMPLE JSON CONTENT:
+[
+  {
+    "name": "Aadvait Ranjan",
+    "id": "aadvaitranjan",
+    "link1id": "discord",
+    "link1": "https://discord.com/users/...",
+    "link2id": "github",
+    "link2": "https://github.com/...",
+    "link3id": "none",
+    "link3": "none"
+  }
+]
