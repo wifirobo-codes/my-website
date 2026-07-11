@@ -2,15 +2,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const grid = document.getElementById('friends-grid');
 
     try {
-        const res = await fetch('./friends.json');
+        // Cache-busting for static hosting (GitHub Pages/browser caches)
+        const url = `./friends.json?v=${Date.now()}`;
+        const res = await fetch(url, { cache: 'no-store' });
+
+        if (!res.ok) {
+            throw new Error(`Failed to load friends.json: ${res.status} ${res.statusText}`);
+        }
+
         const data = await res.json();
 
         grid.innerHTML = data.map(f => {
             const links = [1, 2, 3].map(i => {
                 let id = f[`link${i}id`];
-                const url = f[`link${i}`];
+                const linkUrl = f[`link${i}`];
 
-                if (id === 'none' || !id || !url) return '';
+                if (id === 'none' || !id || !linkUrl || linkUrl === 'none') return '';
 
                 id = id.toLowerCase().trim();
 
@@ -24,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 if (!filename) return '';
 
-                return `<a href="${url}" target="_blank" rel="noreferrer"><img src="./assets/${filename}" class="social-icon ${id === 'linktree' ? 'icon-circle' : ''}" alt="${id}"></a>`;
+                return `<a href="${linkUrl}" target="_blank" rel="noreferrer"><img src="./assets/${filename}" class="social-icon ${id === 'linktree' ? 'icon-circle' : ''}" alt="${id}"></a>`;
             }).join('');
 
             return `
@@ -35,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>`;
         }).join('');
     } catch (e) {
+        console.error(e);
         grid.innerHTML = '<p>Could not load friends list.</p>';
     }
 });
